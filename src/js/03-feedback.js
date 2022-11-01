@@ -10,18 +10,17 @@ const inputValues = {
 }
 
 form.addEventListener('submit', clearAll)
-input.addEventListener('input', throttle(typeEmail, 500))
-textarea.addEventListener('input', throttle(typeMessage, 500))
+input.addEventListener('input', typeEmail)
+form.addEventListener('input', throttle(localStorageRenew, 500))
+textarea.addEventListener('input', typeMessage)
 window.addEventListener('load', pageLoad)
 
 function typeEmail(event) {
     inputValues.email = event.currentTarget.value;
-    localStorageRenew()
 }
 
 function typeMessage(event) {
     inputValues.message = event.currentTarget.value;
-    localStorageRenew()
 }
 
 function localStorageRenew() {
@@ -29,7 +28,7 @@ function localStorageRenew() {
 }
 
 function pageLoad() {
-    lastTyped = JSON.parse(localStorage.getItem("feedback-form-state"));
+    const lastTyped = JSON.parse(localStorage.getItem("feedback-form-state"));
     if (lastTyped !== null) {
         input.value = lastTyped.email;
         textarea.value = lastTyped.message;}   
